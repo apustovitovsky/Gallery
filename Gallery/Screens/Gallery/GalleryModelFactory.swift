@@ -5,6 +5,11 @@
 import UIKit
 
 protocol GalleryModelFactoryProtocol {
+    /// Создает массив моделей для View из сетевых данных.
+    /// - Parameters:
+    ///   - models: Массив моделей данных Unsplash.
+    ///   - onSelect: Замыкание, вызываемое при выборе элемента.
+    /// - Returns: Массив моделей для отображения в галерее.
     func create(from models: [UnsplashPhotoModel], onSelect: @escaping (String) -> Void) -> [GalleryView.Item]
 }
 

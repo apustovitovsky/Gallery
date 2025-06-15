@@ -5,7 +5,12 @@
 import UIKit
 
 protocol GalleryRouterProtocol {
+    /// Переход на экран детального просмотра фотографии.
+    /// - Parameter context: Модель данных фотографии.
     func pushToDetailed(with context: UnsplashPhotoModel)
+
+    /// Отображение алерта с возможностью повторить действие.
+    /// - Parameter onRetry: Замыкание, вызываемое при выборе действия "Повторить".
     func presentAlert(onRetry: @escaping (() -> Void))
 }
 

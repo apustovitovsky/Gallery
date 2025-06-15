@@ -4,6 +4,7 @@
 
 import UIKit
 
+/// Менеджер для управления данными и событиями коллекции галереи.
 class GalleryCollectionViewManager: NSObject {
     private var dataSource = [GalleryView.Item]()
 }

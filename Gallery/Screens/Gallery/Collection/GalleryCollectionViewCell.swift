@@ -5,6 +5,7 @@
 import Kingfisher
 import UIKit
 
+/// Ячейка коллекции для отображения изображения в галерее.
 final class GalleryCollectionViewCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let imageView = UIImageView()

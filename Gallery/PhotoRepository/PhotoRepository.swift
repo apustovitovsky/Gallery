@@ -5,11 +5,18 @@
 import UIKit
 
 protocol PhotoRepositoryProtocol: AnyObject {
+    /// Источник данных для разных экранов.
+    /// Хранит информацию, которая может быть передана любому экрану для создания модели View.
     var photos: [UnsplashPhotoModel] { get }
 
+    /// Загружает фотографии из API Unsplash.
+    /// - Parameter completion: Замыкание, вызываемое после завершения загрузки.
     func fetchPhotos(completion: @escaping (Result<[UnsplashPhotoModel], Error>) -> Void)
 }
 
+/// Класс PhotoRepository отвечает за загрузку и хранение фотографий из API Unsplash.
+/// Он является источником данных для разных экранов приложения, предоставляя массив фотографий.
+/// Также реализует кэширование API-запросов для оптимизации работы с сетью.
 class PhotoRepository {
     private static let sharedPhotoURLCache = URLCache(memoryCapacity: 20 * 1024 * 1024, diskCapacity: 100 * 1024 * 1024)
 
