@@ -110,9 +110,9 @@ private extension GalleryCollectionViewCell {
             overlayView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
             overlayView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
 
-            descriptionLabel.topAnchor.constraint(equalTo: overlayView.topAnchor, constant: 8),
-            descriptionLabel.leadingAnchor.constraint(equalTo: overlayView.leadingAnchor, constant: 8),
-            descriptionLabel.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor, constant: -8),
+            descriptionLabel.topAnchor.constraint(equalTo: overlayView.topAnchor, constant: 12),
+            descriptionLabel.leadingAnchor.constraint(equalTo: overlayView.leadingAnchor, constant: 12),
+            descriptionLabel.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor, constant: -12),
 
             likesImageView.topAnchor.constraint(greaterThanOrEqualTo: descriptionLabel.bottomAnchor, constant: 8),
             likesImageView.bottomAnchor.constraint(equalTo: overlayView.bottomAnchor, constant: -8),
@@ -120,7 +120,7 @@ private extension GalleryCollectionViewCell {
             likesImageView.widthAnchor.constraint(equalToConstant: 18),
             likesImageView.heightAnchor.constraint(equalToConstant: 18),
 
-            likesLabel.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor, constant: -8),
+            likesLabel.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor, constant: -12),
             likesLabel.centerYAnchor.constraint(equalTo: likesImageView.centerYAnchor)
         ])
     }
