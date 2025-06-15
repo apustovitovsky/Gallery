@@ -23,6 +23,13 @@ final class GalleryViewModel {
 
 extension GalleryViewModel {
     func viewDidLoad() {
+        loadPhotos()
+    }
+}
+
+private extension GalleryViewModel {
+    /// Загрузить и отобразить фотографии
+    func loadPhotos() {
         photoRepository.fetchPhotos { [weak self] result in
             guard let self else { return }
 
@@ -40,14 +47,13 @@ extension GalleryViewModel {
                 )
                 view?.update(with: model)
             case .failure:
-                // TODO: Обработать ошибку
-                fatalError("Failed to fetch photos")
+                router.presentAlert(onRetry: { [weak self] in
+                    self?.loadPhotos()
+                })
             }
         }
     }
-}
 
-private extension GalleryViewModel {
     func selectionHandler(photoID: String) {
         guard let unsplashPhoto = photoRepository.photos.first(where: { $0.id == photoID }) else {
             assertionFailure("Не найден ID в хранилище фотографии")
