@@ -16,7 +16,6 @@ final class GalleryCollectionViewCell: UICollectionViewCell {
     
     private let overlayView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
         return view
@@ -24,8 +23,7 @@ final class GalleryCollectionViewCell: UICollectionViewCell {
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.font = UIFont.preferredFont(forTextStyle: .callout)
         label.numberOfLines = 2
         label.lineBreakMode = .byTruncatingTail
         label.adjustsFontForContentSizeCategory = true
@@ -41,7 +39,6 @@ final class GalleryCollectionViewCell: UICollectionViewCell {
     
     private let likesLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.adjustsFontForContentSizeCategory = true
         return label
@@ -49,14 +46,7 @@ final class GalleryCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        imageView.layer.cornerRadius = 16
-        imageView.clipsToBounds = true
-        contentView.layer.cornerRadius = 16
-        contentView.layer.masksToBounds = false
-        contentView.layer.shadowColor = UIColor.black.cgColor
-        contentView.layer.shadowOpacity = 0.15
-        contentView.layer.shadowRadius = 8
-        contentView.layer.shadowOffset = CGSize(width: 0, height: 3)
+
         setupViews()
         setupConstraints()
     }
@@ -74,26 +64,41 @@ extension GalleryCollectionViewCell {
         imageView.kf.setImage(with: .network(item.imageURL))
         descriptionLabel.text = item.description
         likesLabel.text = "\(item.likes)"
+        overlayView.backgroundColor = item.color.withAlphaComponent(0.9)
+
+        // Если фон слишком светлый, то делаем текст темным для улучшения читаемости
+        let textColor: UIColor = item.color.isLight ? .darkText : .white
+
+        descriptionLabel.textColor = textColor
+        likesLabel.textColor = textColor
     }
 }
 
-// MARK: - Private methods
+// MARK: - View setup
 
 private extension GalleryCollectionViewCell {
     func setupViews() {
         contentView.addSubview(imageView)
+        contentView.layer.cornerRadius = 16
+        contentView.layer.masksToBounds = false
+        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowOpacity = 0.15
+        contentView.layer.shadowRadius = 8
+        contentView.layer.shadowOffset = CGSize(width: 0, height: 3)
+
         imageView.addSubview(overlayView)
+        imageView.layer.cornerRadius = 16
+        imageView.clipsToBounds = true
+
         overlayView.addSubview(descriptionLabel)
         overlayView.addSubview(likesImageView)
         overlayView.addSubview(likesLabel)
     }
 
     func setupConstraints() {
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        overlayView.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        likesImageView.translatesAutoresizingMaskIntoConstraints = false
-        likesLabel.translatesAutoresizingMaskIntoConstraints = false
+        [imageView, overlayView, descriptionLabel, likesImageView, likesLabel].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
 
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -105,19 +110,32 @@ private extension GalleryCollectionViewCell {
             overlayView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
             overlayView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
 
-            descriptionLabel.topAnchor.constraint(equalTo: overlayView.topAnchor, constant: 10),
-            descriptionLabel.leadingAnchor.constraint(equalTo: overlayView.leadingAnchor, constant: 12),
-            descriptionLabel.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor, constant: -12),
+            descriptionLabel.topAnchor.constraint(equalTo: overlayView.topAnchor, constant: 8),
+            descriptionLabel.leadingAnchor.constraint(equalTo: overlayView.leadingAnchor, constant: 8),
+            descriptionLabel.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor, constant: -8),
 
             likesImageView.topAnchor.constraint(greaterThanOrEqualTo: descriptionLabel.bottomAnchor, constant: 8),
-            likesImageView.bottomAnchor.constraint(equalTo: overlayView.bottomAnchor, constant: -10),
+            likesImageView.bottomAnchor.constraint(equalTo: overlayView.bottomAnchor, constant: -8),
             likesImageView.trailingAnchor.constraint(equalTo: likesLabel.leadingAnchor, constant: -4),
             likesImageView.widthAnchor.constraint(equalToConstant: 18),
             likesImageView.heightAnchor.constraint(equalToConstant: 18),
 
-            likesLabel.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor, constant: -12),
+            likesLabel.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor, constant: -8),
             likesLabel.centerYAnchor.constraint(equalTo: likesImageView.centerYAnchor)
         ])
+    }
+}
+
+private extension UIColor {
+    /// Светлый ли цвет
+    var isLight: Bool {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        let brightness = (red * 299 + green * 587 + blue * 114) / 1000
+        return brightness > 0.8
     }
 }
 
