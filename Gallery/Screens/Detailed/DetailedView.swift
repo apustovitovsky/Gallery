@@ -34,16 +34,8 @@ final class DetailedView: UIView {
 // MARK: - Configuration
 
 extension DetailedView {
-    func configure(with model: Model) {
+    func configure(with model: DetailedViewController.Model) {
         imageView.kf.setImage(with: .network(model.imageURL))
-    }
-}
-
-// MARK: - Model
-
-extension DetailedView {
-    struct Model: Equatable {
-        let imageURL: URL
     }
 }
 

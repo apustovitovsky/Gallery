@@ -43,7 +43,7 @@ private extension GalleryViewModel {
 
                 let model = GalleryViewController.Model(
                     title: String(localized: "gallery_title"),
-                    modelForView: .init(imageItems: items)
+                    imageItems: items
                 )
                 view?.update(with: model)
             case .failure:

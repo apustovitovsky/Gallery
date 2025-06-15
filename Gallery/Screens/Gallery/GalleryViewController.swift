@@ -37,7 +37,7 @@ final class GalleryViewController: UIViewController {
 extension GalleryViewController: GalleryViewProtocol {
     func update(with model: Model) {
         title = model.title
-        customView.configure(with: model.modelForView)
+        customView.configure(with: model)
     }
 }
 
@@ -46,6 +46,15 @@ extension GalleryViewController: GalleryViewProtocol {
 extension GalleryViewController {
     struct Model {
         let title: String
-        let modelForView: GalleryView.Model
+        let imageItems: [Item]
+    }
+
+    struct Item {
+        let imageURL: URL
+        let description: String
+        let color: UIColor
+        let likes: Int
+
+        let onSelect: () -> Void
     }
 }

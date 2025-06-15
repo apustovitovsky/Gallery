@@ -61,7 +61,7 @@ final class GalleryCollectionViewCell: UICollectionViewCell {
 // MARK: - Configuration
 
 extension GalleryCollectionViewCell {
-    func configure(with item: GalleryView.Item) {
+    func configure(with item: GalleryViewController.Item) {
         imageView.kf.setImage(with: .network(item.imageURL))
         descriptionLabel.text = item.description
         likesLabel.text = "\(item.likes)"

@@ -42,26 +42,9 @@ final class GalleryView: UIView {
 // MARK: - Configuration
 
 extension GalleryView {
-    func configure(with model: Model) {
+    func configure(with model: GalleryViewController.Model) {
         tableManager.configure(with: model.imageItems)
         collectionView.reloadData()
-    }
-}
-
-// MARK: - Model
-
-extension GalleryView {
-    struct Model {
-        let imageItems: [Item]
-    }
-
-    struct Item {
-        let imageURL: URL
-        let description: String
-        let color: UIColor
-        let likes: Int
-
-        let onSelect: () -> Void
     }
 }
 

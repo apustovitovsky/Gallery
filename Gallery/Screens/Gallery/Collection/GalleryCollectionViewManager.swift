@@ -6,11 +6,11 @@ import UIKit
 
 /// Менеджер для управления данными и событиями коллекции галереи.
 class GalleryCollectionViewManager: NSObject {
-    private var dataSource = [GalleryView.Item]()
+    private var dataSource = [GalleryViewController.Item]()
 }
 
 extension GalleryCollectionViewManager {
-    func configure(with models: [GalleryView.Item]) {
+    func configure(with models: [GalleryViewController.Item]) {
         dataSource = models
     }
 }

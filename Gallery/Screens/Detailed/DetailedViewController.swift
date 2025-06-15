@@ -37,7 +37,7 @@ final class DetailedViewController: UIViewController {
 extension DetailedViewController: DetailedViewProtocol {
     func update(with model: Model) {
         title = model.title
-        customView.configure(with: .init(imageURL: model.imageURL))
+        customView.configure(with: model)
     }
 }
 

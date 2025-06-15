@@ -10,14 +10,14 @@ protocol GalleryModelFactoryProtocol {
     ///   - models: Массив моделей данных Unsplash.
     ///   - onSelect: Замыкание, вызываемое при выборе элемента.
     /// - Returns: Массив моделей для отображения в галерее.
-    func create(from models: [UnsplashPhotoModel], onSelect: @escaping (String) -> Void) -> [GalleryView.Item]
+    func create(from models: [UnsplashPhotoModel], onSelect: @escaping (String) -> Void) -> [GalleryViewController.Item]
 }
 
 /// Фабрика, создающая модели для View из сетевой модели.
 struct GalleryModelFactory: GalleryModelFactoryProtocol {
-    func create(from models: [UnsplashPhotoModel], onSelect: @escaping (String) -> Void) -> [GalleryView.Item] {
+    func create(from models: [UnsplashPhotoModel], onSelect: @escaping (String) -> Void) -> [GalleryViewController.Item] {
         models.map { unsplashPhotoModel in
-            GalleryView.Item(
+            GalleryViewController.Item(
                 imageURL: unsplashPhotoModel.urls.thumb,
                 description: unsplashPhotoModel.description ?? unsplashPhotoModel.altDescription ?? "",
                 color: unsplashPhotoModel.color,
