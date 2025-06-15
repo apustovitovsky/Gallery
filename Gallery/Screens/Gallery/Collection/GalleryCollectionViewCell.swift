@@ -14,14 +14,14 @@ final class GalleryCollectionViewCell: UICollectionViewCell {
         imageView.layer.cornerRadius = 16
         return imageView
     }()
-    
+
     private let overlayView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
         return view
     }()
-    
+
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .callout)
@@ -30,14 +30,14 @@ final class GalleryCollectionViewCell: UICollectionViewCell {
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
-    
+
     private let likesImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "heart.fill"))
         imageView.tintColor = .systemPink
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
+
     private let likesLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
@@ -139,4 +139,3 @@ private extension UIColor {
         return brightness > 0.8
     }
 }
-

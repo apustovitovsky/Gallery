@@ -5,7 +5,6 @@
 import UIKit
 
 struct DetailedFactory {
-    init() {}
 
     func create(with context: UnsplashPhotoModel) -> UIViewController {
         let viewModel = DetailedViewModel(context: context)

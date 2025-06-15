@@ -25,13 +25,13 @@ extension GalleryCollectionViewManager: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         dataSource.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GalleryCollectionViewCell.self.description(), for: indexPath) as? GalleryCollectionViewCell else {
             assertionFailure("Не удалось создать ячейку")
             return UICollectionViewCell()
         }
-        
+
         let item = dataSource[indexPath.item]
         cell.configure(with: item)
         return cell
