@@ -57,6 +57,10 @@ extension GalleryView {
 
     struct Item {
         let imageURL: URL
+        let description: String
+        let color: UIColor
+        let likes: Int
+
         let onSelect: () -> Void
     }
 }
@@ -72,8 +76,8 @@ private extension GalleryView {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
         ])
@@ -85,9 +89,18 @@ private extension GalleryView {
     func updateCellSize() {
         guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
 
-        let spacing: CGFloat = 16
-        let availableWidth = collectionView.bounds.width - spacing
-        let numberOfItemsPerRow = max(floor(availableWidth / (100 + spacing)), 1)
+        // Отступ между ячейками
+        let spacing: CGFloat = 8
+
+        // Отступы для всей секции, чтобы ячейки не прижимались к бокам
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+
+        // Минимально допустимая ширина ячейки
+        let minimalWidth: CGFloat = 150
+
+        let horizontalInsets = layout.sectionInset.left + layout.sectionInset.right
+        let availableWidth = collectionView.bounds.width - horizontalInsets - spacing
+        let numberOfItemsPerRow = max(floor(availableWidth / (minimalWidth + spacing)), 1)
         let totalSpacing = spacing * (numberOfItemsPerRow - 1)
         let itemWidth = (availableWidth - totalSpacing) / numberOfItemsPerRow
 
