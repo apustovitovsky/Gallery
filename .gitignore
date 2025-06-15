@@ -1,5 +1,7 @@
 Gallery/Resources/Secrets.xcconfig
 
+.DS_STORE
+
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
