@@ -12,8 +12,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
 
-        guard let apiKey = Bundle.main.infoDictionary?["UNSPLASH_API_KEY"] as? String else {
-            fatalError("Enivorment variable UNSPLASH_API_KEY is not set, please set it in scheme settings")
+        guard
+            let apiKey = Bundle.main.infoDictionary?["UNSPLASH_API_KEY"] as? String,
+            !apiKey.isEmpty
+        else {
+            fatalError("Enivorment variable UNSPLASH_API_KEY is not set, please set it in xcconfig file")
         }
 
         let navigationController = UINavigationController()
