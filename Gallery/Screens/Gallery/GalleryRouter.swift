@@ -15,12 +15,12 @@ protocol GalleryRouterProtocol {
 }
 
 struct GalleryRouter: GalleryRouterProtocol {
-    let navigationController: UINavigationController?
+    let navigationController: UINavigationController
 
     func pushToDetailed(with context: UnsplashPhotoModel) {
         let factory = DetailedFactory()
         let detailedViewController = factory.create(with: context)
-        navigationController?.pushViewController(detailedViewController, animated: true)
+        navigationController.pushViewController(detailedViewController, animated: true)
     }
 
     func presentAlert(onRetry: @escaping (() -> Void)) {
@@ -29,6 +29,6 @@ struct GalleryRouter: GalleryRouterProtocol {
             onRetry()
         })
         alert.addAction(retryAction)
-        navigationController?.present(alert, animated: true)
+        navigationController.present(alert, animated: true)
     }
 }

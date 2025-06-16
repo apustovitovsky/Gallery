@@ -18,17 +18,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         else {
             fatalError("Enivorment variable UNSPLASH_API_KEY is not set, please set it in xcconfig file")
         }
-
+        
         let navigationController = UINavigationController()
         let photoRepository = PhotoRepository(apiKey: apiKey)
         let factory = GalleryFactory(photoRepository: photoRepository, navigationController: navigationController)
         let viewController = factory.create()
 
         navigationController.setViewControllers([viewController], animated: false)
-
+        
         window.rootViewController = navigationController
         self.window = window
         window.makeKeyAndVisible()
+
+        if !UserDefaults.hasSeenAppIntroduction {
+            presentIntroductionViewController(using: navigationController)
+        }
+    }
+    
+    private func presentIntroductionViewController(using navigationController: UINavigationController) {
+        let factory = IntroductionFactory(navigationController: navigationController)
+        let viewController = factory.create()
+        viewController.isModalInPresentation = true
+        navigationController.present(viewController, animated: true, completion: nil)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
