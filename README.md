@@ -6,7 +6,10 @@ Gallery — это приложение для просмотра фотогра
 - Детальный просмотр изображения.
 - Поддержка различных ориентаций экрана.
 
-<img src="Documentation/gallery.png" alt="Gallery" width="300">
+<div>
+   <img src="Documentation/introduction.png" alt="Introduction" width="300">
+   <img src="Documentation/gallery.png" alt="Gallery" width="300">
+</div>
 
 ## Требования
 
