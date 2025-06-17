@@ -35,7 +35,7 @@ extension IntroductionViewModel: IntroductionViewModelProtocol {
 
 private extension IntroductionViewModel {
     func continueHandler() {
-        router?.dismissIntroduction?()
+        router?.onContinue()
     }
 }
 

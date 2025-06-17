@@ -5,9 +5,9 @@
 import UIKit
 
 protocol IntroductionRouterProtocol {
-    var dismissIntroduction: (() -> Void)? { get set }
+    var onContinue: () -> Void { get }
 }
 
 struct IntroductionRouter: IntroductionRouterProtocol {
-    var dismissIntroduction: (() -> Void)?
+    var onContinue: () -> Void
 }

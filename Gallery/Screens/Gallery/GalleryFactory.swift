@@ -8,9 +8,11 @@ struct GalleryFactory {
     let photoRepository: PhotoRepositoryProtocol
     let navigationController: UINavigationController
 
-    func create() -> UIViewController {
-        let router = GalleryRouter(navigationController: navigationController)
-
+    func create(onSelect: @escaping (UnsplashPhotoModel) -> Void) -> UIViewController {
+        let router = GalleryRouter(
+            navigationController: navigationController,
+            pushToDetailed: { onSelect($0) })
+        
         let viewModel = GalleryViewModel(
             router: router,
             photoRepository: photoRepository,

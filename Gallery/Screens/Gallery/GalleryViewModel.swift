@@ -60,6 +60,6 @@ private extension GalleryViewModel {
             return
         }
 
-        router.pushToDetailed(with: unsplashPhoto)
+        router.pushToDetailed(unsplashPhoto)
     }
 }

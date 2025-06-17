@@ -6,6 +6,7 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+    private var appCoordinator: AppCoordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -21,25 +22,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let navigationController = UINavigationController()
         let photoRepository = PhotoRepository(apiKey: apiKey)
-        let factory = GalleryFactory(photoRepository: photoRepository, navigationController: navigationController)
-        let viewController = factory.create()
-
-        navigationController.setViewControllers([viewController], animated: false)
         
         window.rootViewController = navigationController
         self.window = window
         window.makeKeyAndVisible()
 
-        if !UserDefaults.hasSeenAppIntroduction {
-            presentIntroductionViewController(using: navigationController)
-        }
-    }
-    
-    private func presentIntroductionViewController(using navigationController: UINavigationController) {
-        let factory = IntroductionFactory(navigationController: navigationController)
-        let viewController = factory.create()
-        viewController.isModalInPresentation = true
-        navigationController.present(viewController, animated: true, completion: nil)
+        appCoordinator = AppCoordinator(
+            navigationController: navigationController,
+            photoRepository: photoRepository)
+        
+        appCoordinator?.start()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -7,7 +7,7 @@ import UIKit
 protocol GalleryRouterProtocol {
     /// Переход на экран детального просмотра фотографии.
     /// - Parameter context: Модель данных фотографии.
-    func pushToDetailed(with context: UnsplashPhotoModel)
+    var pushToDetailed: (UnsplashPhotoModel) -> Void { get }
 
     /// Отображение алерта с возможностью повторить действие.
     /// - Parameter onRetry: Замыкание, вызываемое при выборе действия "Повторить".
@@ -15,13 +15,9 @@ protocol GalleryRouterProtocol {
 }
 
 struct GalleryRouter: GalleryRouterProtocol {
-    let navigationController: UINavigationController
 
-    func pushToDetailed(with context: UnsplashPhotoModel) {
-        let factory = DetailedFactory()
-        let detailedViewController = factory.create(with: context)
-        navigationController.pushViewController(detailedViewController, animated: true)
-    }
+    let navigationController: UINavigationController
+    var pushToDetailed: (UnsplashPhotoModel) -> Void
 
     func presentAlert(onRetry: @escaping (() -> Void)) {
         let alert = UIAlertController(title: String(localized: "gallery_error_title"), message: nil, preferredStyle: .alert)

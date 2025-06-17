@@ -7,19 +7,17 @@ import UIKit
 struct IntroductionFactory {
     let navigationController: UINavigationController
 
-    func create() -> UIViewController {
+    func create(onFinish: @escaping () -> Void) -> UIViewController {
 
         let viewModel = IntroductionViewModel(
             modelFactory: IntroductionModelFactory())
 
         let controller = IntroductionViewController(viewModel: viewModel)
+        controller.isModalInPresentation = true
+        
         viewModel.view = controller
         
-        var router = IntroductionRouter()
-        router.dismissIntroduction = { [weak controller] in
-            UserDefaults.hasSeenAppIntroduction = true
-            controller?.dismiss(animated: true)
-        }
+        let router = IntroductionRouter(onContinue: { onFinish() })
         viewModel.router = router
 
         return controller
